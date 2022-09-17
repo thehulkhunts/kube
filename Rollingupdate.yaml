@@ -17,12 +17,12 @@ spec:
     name: web-app-pod
     labels:
       app: web
-  spec:
-    containers:
-    - name: container-1
-      image: nginx
-      ports:
-        - containerPort: 80
+    spec:
+      containers:
+      - name: container-1
+        image: nginx
+        ports:
+          - containerPort: 80
       
       
    
