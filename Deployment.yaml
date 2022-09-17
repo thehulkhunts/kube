@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web-app
+  namespaace: default
+spec:
+  replicas: 3
+  selector:
+  matchLabels:
+    app: web
+  template:
+    metadata:
+      name: web-app-container
+      labels:
+        app: web
+    spec:
+      containers:
+      - name: web-app-container
+        image: nginx
+        ports: 
+          - containerPort: 80
+            protocol: TCP
+          - name: http
+        volumeMount:
+          - name: persistent-volume
+            path: /usr/share/nginx/html
+       volumes:
+         - name: persistent-volume
+           persistentVolumeClaim:
+             claimName: nginx-pvc
+             
+          
+          
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: service
+spec:
+  ports:
+    - port: 80
+      targetPort: 80
+  selector:
+    app: web
+  type: NodePort
+  
+  
